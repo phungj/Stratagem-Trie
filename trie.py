@@ -10,10 +10,11 @@ class TrieNode:
         self.text = text
         self.children = dict()
         self.is_word = False
+        self.stratagem = None
 
 
     def __str__(self):
-        return '{} -> {}'.format(self.text, self.children)
+        return '{} -> {}'.format(self.text, self.stratagem if self.stratagem else self.children)
 
 
 
@@ -40,7 +41,7 @@ class PrefixTree:
             self.__displayHelper(current.children[letter])
 
 
-    def insert(self, word):
+    def insert(self, word, stratagem):
         '''
         Inserts the given word into this prefix tree.
         '''
@@ -51,6 +52,7 @@ class PrefixTree:
                 current.children[char] = TrieNode(prefix)
             current = current.children[char]
         current.is_word = True
+        current.stratagem = stratagem
 
 
     def find(self, word):
